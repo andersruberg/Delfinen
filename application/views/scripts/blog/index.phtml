@@ -1,0 +1,11 @@
+<div class="span-12">
+<?php foreach ($this->posts as $post): ?>
+    
+    <h2><?php echo $this->escape($post['title']); ?></h2>
+<?php echo $post['content']; ?>
+<p>
+    <hr>
+<?php endforeach; ?>
+
+
+</div>

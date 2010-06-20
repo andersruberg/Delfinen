@@ -1,0 +1,16 @@
+<phpunit bootstrap = "./application/bootstrap.php" colors='true'>
+
+    <testsuite name="MyApp">
+        <directory>./</directory>
+    </testsuite>
+
+    <filter>
+        <whiteliset>
+            <directory suffix=".php">../application</directory>
+            <exclude>
+                <directory suffix=".phtml">../application</directory>
+            </exclude>
+        </whiteliset>
+
+    </filter>
+</phpunit>

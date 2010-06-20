@@ -1,0 +1,38 @@
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<?php echo $this->headMeta(); ?>
+<?php echo $this->headTitle(); ?>
+<?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/site.css'); ?>
+<?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/screen.css', 'screen, projection'); ?>
+<?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/ie.css', 'screen, projection', 'IE'); ?>
+<?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/print.css', 'print'); ?>
+<?php echo $this->headLink(); ?>
+</head>
+<body>
+
+    <div id="header">
+        <img src="<?php echo $this->baseUrl().'/images/delfinrubrik.gif'?>" alt="DK Delfinen"  ></img>
+
+    </div>
+    <div id="navigation">
+    <?php echo $this->navigation()->menu(); ?>
+    </div>
+
+    <div id="left">
+        <?php echo $this->layout()->left; ?>
+    </div>
+    <div id="right">
+        <?php echo $this->layout()->right; ?>
+    </div>
+
+<div id="content">
+<?php echo $this->layout()->content; ?>
+</div>
+
+
+<div id="footer">
+    Sponsorer
+</div>
+</body>
+</html>

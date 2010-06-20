@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : navigation.xml
+    Created on : den 1 februari 2010, 22:03
+    Author     : Anders
+    Description:
+        Purpose of the document follows.
+-->
+
+<configData>
+<nav>
+    <home>
+        <label>Hem</label>
+        <uri>/delfinen/public/</uri>
+
+     <pages>
+         <calendar>
+             <label>Kalender</label>
+             <uri>/delfinen/public/calendar/index</uri>
+         </calendar>
+         <blog>
+             <label>Aktuellt</label>
+             <uri>/delfinen/public/blog/index</uri>
+         </blog>
+         <photos>
+             <label>Bilder</label>
+             <uri>/delfinen/public/photo/index</uri>
+         </photos>
+         <about>
+             <label>Om</label>
+             <uri>/delfinen/public/index/about</uri>
+         </about>
+         <contact>
+             <label>Kontakt</label>
+             <uri>/delfinen/public/index/contact</uri>
+         </contact>
+     </pages>
+    </home>
+</nav>
+</configData>

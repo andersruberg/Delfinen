@@ -1,0 +1,17 @@
+<h4 class="alt">
+Nästkommande evenemang
+</h4>
+<table>
+<?php foreach($this->events as $event): ?>
+<tr>
+
+<td style="padding: 4px; text-align: right; margin-right: 10px;">
+<?php echo $this->escape(date('Y-m-d',strtotime($event['startTime'])));?>
+</td>
+<td style="padding: 4px; text-align: left;">
+<a href="<?php echo $this->url(array('controller'=>'calendar','action'=>'index', 'eventid' => $event['id']));?>">
+<?php echo $this->escape($event['title']);?></a>
+</td>
+</tr>
+<?php endforeach; ?>
+</table>

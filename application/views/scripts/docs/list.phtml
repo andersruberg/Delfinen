@@ -1,0 +1,9 @@
+<ul>
+<?php foreach ($this->docs as $item): ?>
+<li>
+<a href="<?php echo $item->getLink('alternate'); ?>">
+<?php echo $this->escape($item->title); ?> -
+</a>
+</li>
+<?php endforeach; ?>
+</ul>

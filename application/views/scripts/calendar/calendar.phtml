@@ -1,0 +1,44 @@
+<div id="calendar">
+    <table>
+        <thead>
+            <tr>
+        <div id="header">
+
+                    <a href="<?php echo $this->url(array('month' => $this->calendar->getPrevMonth(Zend_Date::MONTH_SHORT)));?>"><</a>
+
+                    <?php echo $this->calendar->get(Zend_Date::MONTH_NAME);?>
+                    <?php echo $this->calendar->get(Zend_Date::YEAR);?>
+
+                    <a href="<?php echo $this->url(array('month' => $this->calendar->getNextMonth(Zend_Date::MONTH_SHORT)));?>">></a>
+
+        </div>
+            </tr>
+            <tr>
+                <?php foreach($this->calendar->getDayNames() as $day) : ?>
+                <td><?php echo $day;?></td>
+                <?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->calendar->getWeeks() as $week) : ?>
+            <tr>
+                    <?php foreach($week as $day) : ?>
+                <td>
+                    <span class="day"><?php echo $day->get(Zend_Date::DAY_SHORT);?></span>
+                            <?php foreach($day->getEvents() as $event) : ?>
+                    <div class="event">
+                        <a href="<?php echo $this->url(array('controller'=>'calendar','action'=>'index', 'eventid' => $event->getData('id')));?>">
+                                        <?php echo $event->getData('title');?>
+                        </a>
+                    </div>
+                            <?php endforeach;?>
+                </td>
+                    <?php endforeach;?>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

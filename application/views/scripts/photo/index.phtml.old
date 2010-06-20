@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    $(function() {
+       alert('Hello');
+    });
+</script>
+
+<table>
+    <?php foreach($this->albums as $album): ?>
+    <tr>
+        <td colspan="4">
+            <?php echo $album['title']?>
+        </td>
+    </tr>
+        <?php for($rows=1; $rows <= ceil(count($album['entries'])/4); $rows++): ?>
+        <tr>
+        <?php for($i=0; $i < 4; $i++):?>
+        <td>
+         <img alt="<?php echo $album['entries'][$i*$rows]['title'];?>" src="<?php echo $album['entries'][$i*$rows]['thumbnailUrl'];?>" />
+        </td>
+        <?php endfor; ?>
+        </tr>
+        <?php endfor; ?>
+    <?php endforeach; ?>
+
+</table>

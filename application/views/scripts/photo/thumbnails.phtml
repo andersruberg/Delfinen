@@ -1,0 +1,9 @@
+<?php foreach($this->photos as $photo): ?>
+<div 
+<a href="<?php echo $this->url(array('controller'=>'photo', 'action'=>'index', 'albumid' => $photo['albumId']));?>">
+   <img alt="<?php echo $photo['description'] ;?>" src="<?php echo $photo['thumbnailUrl'] ;?>" style="background-image:url('/zf/public/css/loading.gif');background-repeat:no-repeat;background-position: center"/>
+</a>
+<br />
+</div>
+<?php endforeach; ?>
+

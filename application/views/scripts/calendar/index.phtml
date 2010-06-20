@@ -1,0 +1,52 @@
+﻿<link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl()?>/css/fullcalendar.css' />
+<script type='text/javascript' src='<?php echo $this->baseUrl()?>/js/fullcalendar.js'></script>
+<script type='text/javascript' src='<?php echo $this->baseUrl()?>/js/gcal.js'></script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css">
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#calendar').fullCalendar({
+            eventSources: [
+                $.fullCalendar.gcalFeed("http://www.google.com/calendar/feeds/dykklubben.delfinen@gmail.com/public/basic"),
+                $.fullCalendar.gcalFeed("http://www.google.com/calendar/feeds/sv.swedish%23holiday@group.v.calendar.google.com/public/basic", {className: 'holiday'})
+                
+            ],
+            timeFormat: 'H:mm',
+            monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'July', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+            dayNames : ['Söndag','Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+            dayNamesShort : ['Sön','Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
+            firstDay:1,
+            header : {left: '', center: 'prev, title, next', right:  ''},
+            buttonText: {today : 'idag'},
+            eventClick: function(event) {
+                // opens events in a popup window
+                //window.open(event.url, 'gcalevent', 'width=700,height=600');
+                /*alert('ID:' + event.id + '\n'
+                                + 'start:' + event.start + '\n'
+                                + 'end:' + event.end + '\n');*/
+                var $dialog = $('<div></div>')
+                .html('ID:' + event.id + '\n'
+                      + 'start:' + event.start + '\n'
+                      + 'end:' + event.end + '\n'
+                      + 'beskrvning:' + event.description + '\n')
+                .dialog({
+                    autoOpen: false,
+                    title: '' + event.title
+                });
+
+                $dialog.dialog('open');
+
+                return false;
+
+            }
+        });
+
+    });
+</script>
+
+
+<div  id='calendar'></div>

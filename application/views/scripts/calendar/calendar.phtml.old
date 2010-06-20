@@ -1,0 +1,19 @@
+<link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl()?>/css/fullcalendar.css' />
+<script type='text/javascript' src='<?php echo $this->baseUrl()?>/js/gcal.js'></script>
+<script type='text/javascript' src='<?php echo $this->baseUrl()?>/js/fullcalendar.js'></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        events: $.fullCalendar.gcalFeed(
+            "http://www.google.com/dykklubben.delfinen$gmail.com/"
+        )
+    });
+
+});
+</script>
+
+<div id='calendar'></div>

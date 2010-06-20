@@ -1,0 +1,11 @@
+<h4 class="alt">
+Senaste nyheterna
+</h4>
+<ul>
+<?php foreach ($this->posts as $post): ?>
+<li>
+<a href="<?php echo $this->url(array('controller'=>'blog','action'=>'index', 'postid' => $post['id']));?>">
+<?php echo $this->escape($post['title']); ?></a>
+</li>
+<?php endforeach; ?>
+</ul>
