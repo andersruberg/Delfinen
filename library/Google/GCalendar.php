@@ -16,11 +16,17 @@ class Google_GCalendar extends Google_GData
      * Google Calender without authentication
      */
     
-    public function __construct($authServiceName = null)
-    {
-        parent::__construct($authServiceName);
+
+     public function __construct($user = 'default') {
+
+        if ($user == 'default') //Authenticated session
+            parent::__construct(Zend_Gdata_Calendar::AUTH_SERVICE_NAME);
+
+        $this->_user = $user;
         Zend_Loader::loadClass('Zend_Gdata_Calendar');
         $this->_service = new Zend_Gdata_Calendar($this->_client);
+
+
     }
 
     public function isAuthenticated()

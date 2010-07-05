@@ -20,7 +20,7 @@ class BlogController extends My_Controller_Action {
     public function listAction() {
 
         $this->_helper->viewRenderer->setResponseSegment('news');
-        $this->view->posts = $this->_blog->getLatestEntries($labels='nyhet', $maxResults=10);
+        $this->view->posts = $this->_blog->getLatestEntries('nyhet', 10);
     }
 
     public function indexAction() {

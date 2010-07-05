@@ -19,7 +19,7 @@ class Model_GCalendarTest extends ControllerTestCase {
 
     public function testGetNextEvents()
     {
-        return;
+        
         $cal = new Model_GCalendar();
         $nextEvents = $cal->getNextEvents();
         var_dump($nextEvents);

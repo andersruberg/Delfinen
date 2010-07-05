@@ -37,6 +37,18 @@ class Model_GBlogger {
         return $result;
     }
 
+    public function getLatestEntries($labels = null, $maxResults = null) {
+
+        $blogPosts = $this->_gblogger->getLatestBlogPosts($labels, $maxResults);
+
+        $result = array();
+        foreach ($blogPosts->entries as $blogPost) {
+            $result[] = array("title" => $blogPost->title->text);
+        }
+
+        return $result;
+    }
+
     /*public function convertEntryToArray($entry){
         $result = array();
 

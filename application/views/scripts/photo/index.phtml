@@ -1,36 +1,9 @@
 <link rel="stylesheet" href="<?php echo $this->baseUrl()?>/css/slimbox2.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo $this->baseUrl()?>/css/pwi.css" type="text/css" media="screen" />
-<script type="application/javascript" src="<?php echo $this->baseUrl()?>/js/slimbox2.js"></script>
-<script type="application/javascript" src="<?php echo $this->baseUrl()?>/js/jquery.EmbedPicasaGallery.js"></script>
 <script type="application/javascript" src="<?php echo $this->baseUrl()?>/js/jquery.pwi.js"></script>
 <script type="application/javascript" src="<?php echo $this->baseUrl()?>/js/jquery.blockUI.js"></script>
 
 <script type="text/javascript">
-/*$(document).ready(function() {
-
-        var options = {
-                username: 'dykklubben.delfinen',
-                mode: "<?php echo $this->viewMode;?>",
-                album: "<?php echo $this->albumId;?>",
-                thumbSize: 144,
-                thumbCss: { margin: '5px' },
-                labels: {photo:"bild", //-- override labels, to translate into your required language
-                                photos: "bilder",
-                                albums: "Tillbaka till album",
-                                slideshow: "Visa bildspel",
-                                loading: "Läser in bilder...",
-                                page: "Sida",
-                                prev: "Föregående",
-                                next: "Nästa",
-                                devider: "|"
-                }
-                
-        };
-
-        $("#mygallery").pwi(options);
-
-});*/
-
 
 jQuery(document).ready(function() {
 
@@ -44,7 +17,6 @@ jQuery("#mygallery").EmbedPicasaGallery('dykklubben.delfinen',{
   thumb_tuner:        function($div,item,i){var desc = item.media$group.media$description.$t; if (desc) $div.append('<br>' + desc)}
 });
 });
-
 
 </script>
 <div id="mygallery"></div>
