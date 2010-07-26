@@ -14,14 +14,104 @@ class Model_GPhoto {
     public function __construct($public = true) {
 
         if ($public == true)
-            $this->_gphoto = new Google_GPhoto($this->user);
+            {
+            $gphoto = new Google_GPhoto($this->user);
+            }
+        else {
+            $gphoto = new Google_GPhoto();
+        }
+
+        
+        $this->_gphoto = $gphoto;
+    }
+
+    public function getRandomPhotosCached($nbrOfPhotos = 10) {
+        $frontendOptions = array('automatic_serialization' => true);
+        $backendOptions = array('cache_dir' => APPLICATION_PATH . '/../tmp');
+        
+        $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
+
+        
+
+        $start_time = microtime(true);
+        
+        //Load the list of albums
+        $id = 'albums';
+        $data = $cache->load($id);
+        if(!$data)
+        {
+            echo "\nList of albums not found in cache.";
+            $cache->save($this->_gphoto->getAlbums(), $id);
+            $data = $cache->load($id);
+        }
         else
-            $this->_gphoto = new Google_GPhoto();
+        {
+                echo "\nGetting the list of albums from cache.";
+        }
+        $albums = $data;
+
+        $albumIds = array();
+        foreach ($albums as $album) {
+            $id = Google_GPhoto::getId($album->id->text);
+
+            $albumIds[] = $id;
+        }
+        //Pick a random album
+        $randomAlbumIds = array_rand($albumIds, $nbrOfPhotos);
+
+
+        if (!is_array($randomAlbumIds))
+            $randomAlbumIds = array($randomAlbumIds);
+
+        $result = array();
+
+        //Get the photos in the random album
+        foreach ($randomAlbumIds as $entry) {
+            
+            //Load the list of pictures in a partical album
+            $id = $albumIds[$entry];
+            $data = $cache->load($id);
+            if(!$data)
+            {
+                echo "\nList of pictures not found in cache.";
+                $cache->save($this->_gphoto->getPhotosByAlbumId($albumIds[$entry]), $id);
+                $data = $cache->load($id);
+            }
+            else
+            {
+                    echo "\nGetting list of pictures from cache.";
+            }
+            
+            
+            $photos = $data;
+
+            $photoIds = array();
+            foreach ($photos as $photo) {
+                $id = Google_GPhoto::getId($photo->id->text);
+                $photoIds[] = $id;
+            }
+
+            //Get a random photo
+            $randomPos = array_rand($photoIds, 1);
+            $photo = $photos[$randomPos];
+
+            //$photo = $this->_gphoto->getPhotoById($photoId, albumIds[$entry]);
+            $photoId = $photoIds[$randomPos];
+            $photoTitle = $photo->title->text;
+            $photoDescription = $photo->getMediaGroup()->description->text;
+            $photoThumbnails = $photo->getMediaGroup()->getThumbnail();
+            $photoThumbnailUrl = $photoThumbnails[1]->getUrl();
+            $result[] = array("photoId" => $photoId, "albumId" => $albumIds[$entry], "title" => $photoTitle, "description" => $photoDescription, "thumbnailUrl" => $photoThumbnailUrl);
+        }
+        echo sprintf('%01.4f', microtime(true)-$start_time);
+        return $result;
     }
 
     public function getRandomPhotos($nbrOfPhotos = 10) {
+        
         //Get a list of albums
         $albums = $this->_gphoto->getAlbums();
+
         $albumIds = array();
         foreach ($albums as $album) {
             $id = Google_GPhoto::getId($album->id->text);

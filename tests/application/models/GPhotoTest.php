@@ -19,6 +19,19 @@ class Model_GPhotoTest extends ControllerTestCase {
     {
         return;
         $gphotos = new Model_GPhoto(true);
+
+        
+
         $randomPhotos = $gphotos->getRandomPhotos(4);
+        var_dump($randomPhotos);
+    }
+    public function testGetRandomPhotosCached()
+    {
+        $gphotos = new Model_GPhoto(true);
+
+
+        $randomPhotos = $gphotos->getRandomPhotosCached(4);
+        var_dump($randomPhotos);
+        
     }
 }
