@@ -10,6 +10,7 @@ class Model_GPhoto {
 
     protected $user = 'dykklubben.delfinen@gmail.com';
     protected $_gphoto;
+    protected $cache;
 
     public function __construct($public = true) {
 
@@ -17,48 +18,59 @@ class Model_GPhoto {
             $this->_gphoto = new Google_GPhoto($this->user);
         else
             $this->_gphoto = new Google_GPhoto();
+            
+        $frontendOptions = array('lifetime'=>7200, 'automatic_serialization'=>true);
+        $this->cache = Zend_Cache::factory('Core','File',$frontendOptions);
     }
 
     public function getRandomPhotos($nbrOfPhotos = 10) {
-        //Get a list of albums
-        $albums = $this->_gphoto->getAlbums();
-        $albumIds = array();
-        foreach ($albums as $album) {
-            $id = Google_GPhoto::getId($album->id->text);
-            
-            $albumIds[] = $id;
-        }
-        //Pick a random album
-        $randomAlbumIds = array_rand($albumIds, $nbrOfPhotos);
-        
-
-        if (!is_array($randomAlbumIds))
-            $randomAlbumIds = array($randomAlbumIds);
-        
-        $result = array();
-
-        //Get the photos in the random album
-        foreach ($randomAlbumIds as $entry) {
-            $photos = $this->_gphoto->getPhotosByAlbumId($albumIds[$entry]);
-            $photoIds = array();
-            foreach ($photos as $photo) {
-                $id = Google_GPhoto::getId($photo->id->text);
-                $photoIds[] = $id;
-            }
-
-            //Get a random photo
-            $randomPos = array_rand($photoIds, 1);
-            $photo = $photos[$randomPos];
-
-            //$photo = $this->_gphoto->getPhotoById($photoId, albumIds[$entry]);
-            $photoId = $photoIds[$randomPos];
-            $photoTitle = $photo->title->text;
-            $photoDescription = $photo->getMediaGroup()->description->text;
-            $photoThumbnails = $photo->getMediaGroup()->getThumbnail();
-            $photoThumbnailUrl = $photoThumbnails[1]->getUrl();
-            $result[] = array("photoId" => $photoId, "albumId" => $albumIds[$entry], "title" => $photoTitle, "description" => $photoDescription, "thumbnailUrl" => $photoThumbnailUrl);
-        }
-        return $result;
+    	
+    	// Try fetch from cache
+    	$cacheId = 'randomphotos';
+    	if(($result = $this->cache->load($cacheId)) === false)
+    	{
+	        //Get a list of albums
+	        $albums = $this->_gphoto->getAlbums();
+	        $albumIds = array();
+	        foreach ($albums as $album) {
+	            $id = Google_GPhoto::getId($album->id->text);
+	            
+	            $albumIds[] = $id;
+	        }
+	        //Pick a random album
+	        $randomAlbumIds = array_rand($albumIds, $nbrOfPhotos);
+	
+	        if (!is_array($randomAlbumIds))
+	            $randomAlbumIds = array($randomAlbumIds);
+	        
+	        $result = array();
+	
+	        //Get the photos in the random album
+	        foreach ($randomAlbumIds as $entry) {
+	            $photos = $this->_gphoto->getPhotosByAlbumId($albumIds[$entry]);
+	            $photoIds = array();
+	            foreach ($photos as $photo) {
+	                $id = Google_GPhoto::getId($photo->id->text);
+	                $photoIds[] = $id;
+	            }
+	
+	            //Get a random photo
+	            $randomPos = array_rand($photoIds, 1);
+	            $photo = $photos[$randomPos];
+	
+	            //$photo = $this->_gphoto->getPhotoById($photoId, albumIds[$entry]);
+	            $photoId = $photoIds[$randomPos];
+	            $photoTitle = $photo->title->text;
+	            $photoDescription = $photo->getMediaGroup()->description->text;
+	            $photoThumbnails = $photo->getMediaGroup()->getThumbnail();
+	            $photoThumbnailUrl = $photoThumbnails[1]->getUrl();
+	            $result[] = array("photoId" => $photoId, "albumId" => $albumIds[$entry], "title" => $photoTitle, "description" => $photoDescription, "thumbnailUrl" => $photoThumbnailUrl);
+	        }
+	        
+	        $this->cache->save($result, $cacheId);
+    	}
+    	
+    	return $result;
     }
 
     /**

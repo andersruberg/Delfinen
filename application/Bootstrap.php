@@ -5,7 +5,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     private $_acl = null;
     private $_auth = null;
 
-
     protected function _initAutoload()
 	{
             $moduleLoader = new Zend_Application_Module_Autoloader(array(
@@ -25,7 +24,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
             return $moduleLoader;
 	}
-
         
 	protected function _initViewHelpers()
 	{
@@ -37,16 +35,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headTitle()->setSeparator(' - ');
 		$view->headTitle('Dykklubben Delfinen');
 	}
-        protected function _initNavigation()
-        {
-            $this->bootstrap('layout');
-            $layout = $this->getResource('layout');
-            $view = $layout->getView();
-            $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml', 'nav');
-            $navigation = new Zend_Navigation($config);
-            $view->navigation($navigation);
-            
-
-        }
+	protected function _initNavigation()
+	{
+	    $this->bootstrap('layout');
+	    $layout = $this->getResource('layout');
+	    $view = $layout->getView();
+	    $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml', 'nav');
+	    $navigation = new Zend_Navigation($config);
+	    $view->navigation($navigation);
+	}
 }
-

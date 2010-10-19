@@ -1,11 +1,7 @@
-<div class="span-12">
+<h1>Aktuellt</h1>
 <?php foreach ($this->posts as $post): ?>
-    
-    <h2><?php echo $this->escape($post['title']); ?></h2>
-<?php echo $post['content']; ?>
-<p>
-    <hr>
+	<h2><?php echo $this->escape($post['title']); ?></h2>
+	<b><?=$this->escape($post['published'])?></b><br />
+	<?php echo $post['content']; ?>
+	<hr>
 <?php endforeach; ?>
-
-
-</div>

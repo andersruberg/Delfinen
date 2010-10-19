@@ -1,0 +1,74 @@
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/site.css'); ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/screen.css', 'screen, projection'); ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/ie.css', 'screen, projection', 'IE'); ?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/print.css', 'print'); ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headScript()->appendFile($this->baseUrl().'/js/jquery.js'); ?>
+        
+
+    </head>
+    <body>
+
+        <div class="container">
+
+            <div id="header" class="span-24">
+                <img src="<?php echo $this->baseUrl().'/images/delfinrubrik.gif'?>" alt="DK Delfinen"  ></img>
+
+                <hr></hr>
+            
+                <div id="navigation">
+                <h4 class="alt">
+                    <?php echo $this->navigation()->menu(); ?>
+                </h4>
+                </div>
+            
+            <hr></hr>
+
+            </div>
+            
+
+            <div id="leftsidebar" class="span-6 border" style="min-height: 400px;">
+                
+
+                    
+                        <?php echo $this->layout()->events; ?>
+                    
+                
+                <hr></hr>
+                
+                    <?php echo $this->layout()->news; ?>
+                
+            </div>
+
+            <div id="content" class="span-12 border" style="min-height: 400px;">
+                
+                    <?php echo $this->layout()->content; ?>
+                
+            </div>
+
+            <div id="rightsidebar" class="span-5 last">
+                
+                    <?php echo $this->layout()->thumbnails; ?>
+                
+            </div>
+            <hr></hr>
+            <div id="footer" class="span-24 last">
+                <div class="span-7 ">
+                    <img src="<?php echo $this->baseUrl().'/images/sponsor_cityfarg.gif'?>" alt="Cityfärg"></img>
+                </div>
+                <div class="span-5">
+                    <img src="<?php echo $this->baseUrl().'/images/sponsor_elbe.gif'?>" alt="ELBE"></img>
+                </div>
+                <div class="span-8 last">
+                    <img src="<?php echo $this->baseUrl().'/images/sponsor_termokyl.gif'?>" alt="Termokyl"></img>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

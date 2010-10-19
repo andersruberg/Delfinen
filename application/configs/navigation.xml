@@ -10,32 +10,45 @@
 
 <configData>
 <nav>
-    <home>
-        <label>Hem</label>
-        <uri>/delfinen/public/</uri>
-
-     <pages>
-         <calendar>
-             <label>Kalender</label>
-             <uri>/delfinen/public/calendar/index</uri>
-         </calendar>
-         <blog>
-             <label>Aktuellt</label>
-             <uri>/delfinen/public/blog/index</uri>
-         </blog>
-         <photos>
-             <label>Bilder</label>
-             <uri>/delfinen/public/photo/index</uri>
-         </photos>
-         <about>
-             <label>Om</label>
-             <uri>/delfinen/public/index/about</uri>
-         </about>
-         <contact>
-             <label>Kontakt</label>
-             <uri>/delfinen/public/index/contact</uri>
-         </contact>
-     </pages>
-    </home>
+	<home>
+		<label>Hem</label>
+		<uri>/</uri>
+	</home>
+	<medlem>
+		<label>Bli medlem</label>
+		<uri>/index/medlem</uri>
+	</medlem>
+	<calendar>
+		<label>Kalender</label>
+		<uri>/calendar</uri>
+	</calendar>
+	<blog>
+		<label>Aktuellt</label>
+		<uri>/blog</uri>
+	</blog>
+	<sportdykning>
+		<label>Sportdykning</label>
+		<uri>/sportdykning</uri>
+	</sportdykning>
+	<fridykning>
+		<label>Fridykning</label>
+		<uri>http://sites.google.com/site/dkdelfinenfridykning/</uri>
+	</fridykning>
+	<photos>
+		<label>Bilder</label>
+		<uri>/photo</uri>
+	</photos>
+	<styrelse>
+		<label>Styrelse</label>
+		<uri>/index/styrelse</uri>
+	</styrelse>
+	<contact>
+		<label>Kontakt</label>
+		<uri>/index/contact</uri>
+	</contact>
+	<login>
+		<label>Logga in</label>
+		<uri>/index/login</uri>
+	</login>
 </nav>
 </configData>

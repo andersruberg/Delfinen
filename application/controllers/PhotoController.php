@@ -40,7 +40,7 @@ class PhotoController extends My_Controller_Action {
         //$this->_helper->actionStack('thumbnails', 'photo');
         $this->_helper->actionStack('list', 'blog');
 
-        $this->_helper->layout()->setLayout('alternative');
+        //$this->_helper->layout()->setLayout('alternative');
 
         $id = $this->_getParam('albumid');
         if ($id != null) {

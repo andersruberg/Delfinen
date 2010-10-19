@@ -31,7 +31,7 @@ class Model_GBlogger {
 
         $result = array();
         foreach ($blogPosts->entries as $blogPost) {
-            $result[] = array("title" => $blogPost->title->text);
+            $result[] = array("title" => $blogPost->title->text, "content" => $blogPost->content->text);
         }
         
         return $result;
@@ -43,7 +43,7 @@ class Model_GBlogger {
 
         $result = array();
         foreach ($blogPosts->entries as $blogPost) {
-            $result[] = array("title" => $blogPost->title->text);
+            $result[] = array("title" => $blogPost->title->text, "content" => $blogPost->content->text, "published"=>date('Y-m-d H:i:s', strtotime($blogPost->published)));
         }
 
         return $result;
