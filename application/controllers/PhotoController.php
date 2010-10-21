@@ -30,7 +30,7 @@ class PhotoController extends My_Controller_Action {
         
         
         
-        $this->view->photos = $this->_photos->getRandomPhotos(4);
+        $this->view->photos = $this->_photos->getRandomPhotosCached(4);
         
     }
 

@@ -4,7 +4,7 @@
  * and open the template in the editor.
 */
 
-#require_once('../application/models/GData.php');
+require_once('../library/Google/GData.php');
 
 class Google_GPhoto extends Google_GData {
 

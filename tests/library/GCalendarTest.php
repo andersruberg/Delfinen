@@ -128,6 +128,65 @@ class GCalendarTest extends ControllerTestCase {
 
     }
 
+    public function testCreateSingleEvent() {
+
+        
+        //Get an authenticated session
+        $this->gcal = new Google_GCalendar();
+
+        $newEventId = $this->gcal->createEvent('Test', 'Det här är ett test', 'Ingenstans', '2010-11-27', '11:00', '2010-11-27', '12:00');
+
+        echo "\nA new calender event was created with id: " . $newEventId;
+
+
+    }
+
+    public function testMigrateCalendarEvents() {
+        return;
+        $this->SQLConnect();
+        $this->gcal = new Google_GCalendar();
+
+
+        $query = "SELECT * from d_6";
+        $result = mysql_query($query) or die ("Query failed");
+        $num_posts = mysql_num_rows($result);
+
+        echo "\n\nNumber of calendar events to migrate: $num_posts \n";
+
+        while ($event = mysql_fetch_array($result, MYSQL_ASSOC)) {
+
+            $id = $event['indexid'];
+            $title = utf8_encode($event['newstitle']);
+            $content = utf8_encode($event['newstext']);
+            $date = $event['datum'];
+            $time = $event['tid'];
+            $dateTime = new Zend_Date($date . " " . $time);
+            $newEventId = $newEventId = $this->gcal->createEvent('Test', 'Det här är ett test', 'Ingenstans', '2010-07-27', '10:00', '2010-07-27', '11:00', '+02');
+            echo "Id of new blog post is: " . $newEventId . "\n";
+            $deleteQuery = "DELETE from d_news WHERE indexid =" . $id;
+            mysql_query($deleteQuery) or die ("Failed to delete indexid " . $id);
+        }
+
+    }
+
+       public function SQLConnect() {
+
+        $sqlserver = 'localhost';
+        $sqlport = '';
+        $sqluser = 'root';
+        $sqlpassword = '';
+        $sqldatabase = 'delfinen';
+
+
+        $link = mysql_connect("$sqlserver", "$sqluser", "$sqlpassword")
+                or die("Could not connect to SQL server");
+        mysql_select_db("$sqldatabase") or die("Database unreachable");
+        var_dump(mysql_client_encoding($link));
+
+        #mysql_set_charset('utf8',$link);
+        return $link;
+    }
+
 
 }
 

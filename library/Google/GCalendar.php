@@ -142,14 +142,41 @@ class Google_GCalendar extends Google_GData
 
     }
 
-    public function getId()
+    public function getId($string)
     {
-        $idArray = array();
-        foreach ($this->_id as $id) {
-            $idArray[] = substr($id, strrpos($id, '/')+1);
-        }
+        return substr($string, strrpos($string, '/')+1);
         
-        return $idArray;
+        
+    }
+    
+    function createEvent ($title = '',
+            $desc='', $where = '',
+            $startDate = '', $startTime = '',
+            $endDate = '', $endTime = '') {
+
+
+        $newEvent = $this->_service->newEventEntry();
+
+        $newEvent->title = $this->_service->newTitle($title);
+        $newEvent->where = array($this->_service->newWhere($where));
+        $newEvent->content = $this->_service->newContent("$desc");
+
+        $when = $this->_service->newWhen();
+
+        $date = new Zend_Date($startDate . " " . $startTime, Zend_Date::DATETIME_SHORT);
+        $tzStartOffset = $date->toString(Zend_Date::GMT_DIFF_SEP);
+        $date = new Zend_Date($endDate . " " . $endTime, Zend_Date::DATETIME_SHORT);
+        $tzEndOffset = $date->toString(Zend_Date::GMT_DIFF_SEP);
+       
+        
+        $when->startTime = "{$startDate}T{$startTime}:00.000{$tzStartOffset}";
+        $when->endTime = "{$endDate}T{$endTime}:00.000{$tzEndOffset}";
+        $newEvent->when = array($when);
+
+        // Upload the event to the calendar server
+        // A copy of the event as it is recorded on the server is returned
+        $createdEvent = $this->_service->insertEvent($newEvent);
+        return $this->getId($createdEvent->id->text);
     }
 
 
